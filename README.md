@@ -2,13 +2,13 @@
 
 ## Purpose of this assignment:  
 - 此项目作为Web Fundamental组的结业项目，可以让你很好地锻炼已经学过的web前端开发的基础知识。  
-- 如果想继续参加React项目组的学习，我们会以此项目的完成情况作为面试的重要参考标准之一。  
-- 如果想参加Triple C在后续学期有小概率提供的```HTML, CSS, JS, Jquery```相关的Web项目，完成了此Assignment的你会有绝对的优先权。  
+- 如果想继续参加Triple C React项目组的学习，完成了此Assignment的你会有绝对的优势和优先权。  
+- 如果想参加Triple C在后续学期有小概率提供的 ```HTML, CSS, JS, Jquery``` 相关的Web项目，完成了此Assignment的你会有绝对的优先权。  
 
 ## 开始之前：  
 - 请确保你已经熟悉```HTML/CSS/JS```, ```Jquery``` 以及 ```ajax``` 。  
 - 请确保你对**什么是API**以及**如何从一个API获取数据**有基础了解。  
-- 即使到最后没有完整/完美地完成这个assignment，你依然具有参加Triple C后续面试/项目的资格，且此assignment在Triple C的后续面试中只会起到**extra credit**的作用，i.e. assignment即使完成情况不佳也不会对你的面试产生任何影响。  
+- 即使到最后没有完整/完美地完成这个assignment，你依然具有参加Triple C后续面试/项目的资格，且此assignment在Triple C的后续面试中只会起到**extra credit**的作用，i.e. assignment即使完成情况不佳也不会对你的面试产生任何负面影响。  
 
 ## Assignment简介：  
 本次项目分为三个部分:  
@@ -17,42 +17,69 @@
 <br/>
 <br/>
 
-**2. 调取任意公共API，完成一个简单的web app（后面会有详细说明）：**  
+**2. 调用任意API，完成一个简单的web app（后面会有详细说明）：**  
 ![pic1.png](https://i.loli.net/2021/01/06/rEqFUb8xYHmZMhp.png)  
 <br/>
 <br/>
 
-**3. 完成一个个人网页（后面会有详细说明）：**  
+**3. 完成一个个人网页：**  
 ![pic3.png](https://i.loli.net/2021/01/06/XQFcxgCYW3p1za7.png)   
 <br/>
 <br/>
 
 ## 具体说明：  
 ### 1. 静态网页：
-[在此处查看WireFrame设计图](https://www.figma.com/file/x2din21LcGqaP7zYyShSzN/TripleC_Summer20_HTML?node-id=0%3A1)  
+请用```HTML，CSS和JS```实现设计图上```Page-1```这个页面  
+[在此处查看静态网页的WireFrame设计图](https://www.figma.com/file/x2din21LcGqaP7zYyShSzN/TripleC_Summer20_HTML?node-id=0%3A1)  
 打开Figma页面之后，点击某一个部件，然后点击右边的```code```就能看到对应的CSS代码实现  
-部件的大小（长宽）请根据你的屏幕尺寸做出自适应
+部件的大小（长宽）需要根据不同屏幕尺寸做出自适应
 <br />  
 ![pic7.png](https://i.loli.net/2021/01/06/a2lSTIVs6L1BNGY.png)  
 **!注意** 此处的CSS代码为Figma自动生成，只是为了简化你的CSS调试流程，并不是为了让你全部照抄。  
-你可能注意到了，Figma生成的几乎所有CSS代码都在用 ```position: absolute``` 进行定位。如果你的页面上也全部用的都是 ```position: abosolute``` 定位，那么你的这一项assignment将被直接记零分**。   
+你可能注意到了，Figma生成的几乎所有CSS代码都在用 ```position: absolute``` 进行定位。如果你的页面上也全部用的都是 ```position: abosolute``` 定位，那么你的这一项assignment将被**直接记零分**。   
 （原因：如果所有部件都是 ```position: abosolute``` ，那么我们做的网页就不能自动适应不同尺寸的分辨率。那写HTML和CSS还有什么意义呢？不如直接放一张固定大小的svg算了）  
 <br />
   
 **细节说明:**  
-- 你写的页面只需要跟Figma上的设计图**布局一样**，(i.e. card, navigation bar这些部件在它该在的地方），不需要在意功能  
+- 你写的页面只需要跟设计图**布局一样**，(i.e. card, navigation bar这些部件在它该在的地方），不需要在意功能  
 - 页面需要**占满**你的屏幕。你在Figma里面看到的```Page-1```这个Frame就是你的屏幕。
 - 上面含有```CSE11```的那个框框是个输入框，要可以输入文字  
 - 输入框右边的两个是```button```，点击之后不需要发生任何事件
 - 再往右的sign in是```link```，点击之后任意跳转到哪都行
 - 左边```Top Departments```那一竖条是一个```unordered list```
 - 最下面```Show All```和```Show More```是```button```，点击之后不需要发生任何事件
+- **请不要hard-code**，页面上的所有数据都应该被储存在相应的object里面，然后用```JavaScript```填入```HTML```元素中  
+     - 举例：
+     - 你不该这么写：  
+    ```HTML
+     <ul id="my-list">
+        <li>item 1</li>
+        <li>item 2</li>
+        <li>item 3</li>
+        ...
+        <li>item n</li>
+     </ul>
+     ```
+
+     - 你应该这么写：
+    ```HTML
+    <script>
+        const listData = ['item 1', 'item 2', 'item 3' ... 'item n'];
+        let myList = $('#my-list');
+        listData.map(item => {
+            var newItem = document.createElement('li');
+            newItem.innerHTML = item;
+            myList.append(newItem);
+        })
+    </script>
+    ```
 - 最上面的navigation bar需要贴紧屏幕最上面，同时需要在**任何屏幕尺寸**下都能占满整个屏幕的宽度
-- 页面的颜色，有些部件的```border-radius```等，你都可以在Figma里直接获取到，不用自己去调
+- 页面的颜色，有些部件的 ```border-radius``` 等属性，你都可以在Figma里直接获取到，不用自己去调
 
 **extra credit**  
-- 你可能看到了这个设计图长得非常丑。尝试用```bootstrap```里的相应部件替换页面上的部件
-- 让页面在不同屏幕尺寸下有更强的适应性。比如：在手机这一类屏幕宽度很小的设备上，右边的Card每一排只显示一张，而不是两张；在手机屏幕尺寸下，左边的```Top Departments```这个list，只有在点击某个按钮时才会出现  
+- 你可能看到了这个设计图长得非常丑。尝试用```bootstrap```里的相应部件替换页面上的部件。只要布局与设计图相同即可，不用考虑样式
+- 让页面在不同屏幕尺寸下有更强的适应性。比如：在手机这一类屏幕宽度很小的设备上，右边的Card每一排只显示一张，而不是两张（hint：可以用 ```display:flex``` 完成）  
+- 在手机屏幕尺寸下，左边的```Top Departments```这个list，只有在点击某个按钮时才会出现（hint：用jquery实现会比较方便）  
 <br />
 <br />
 
@@ -86,7 +113,7 @@ See a demo here: [https://weather.ucsdtriplec.org](https://weather.ucsdtriplec.o
 **从哪里找API？：** 
 - 你可以看看 [https://github.com/TonnyL/Awesome_APIs/blob/master/README-zh.md](https://github.com/TonnyL/Awesome_APIs/blob/master/README-zh.md) 提供的一些非常不错的公共API。
 - 这其中很多API会需要你点进去之后阅读这个API的documentation。这个过程很让人头疼，但这是前端开发者必须经历的。
-- 可以直接谷歌搜索xxx API
+- 可以直接谷歌搜索xxx API（把xxx替换成你感兴趣的东西）
 <br />
 <br />
 
@@ -101,8 +128,8 @@ See a demo here: [https://weather.ucsdtriplec.org](https://weather.ucsdtriplec.o
 **细节说明：**  
 - 在这个项目中，你**必须**至少从一个API获取数据，并以某种方式使用/展示数据（如果你看到这里了依然不太确定我在讲什么，可以重新去学习ajax）。  
 - 你可以参考别人的代码，但你必须理解你抄的代码。同时大段的代码引用(>=30 lines) 必须注释代码出处。同时你**不可以**整个项目都完全白嫖别人的代码。
-- 花时间想想你想用什么API来展示什么样的数据。如果实在想不出来，那么我举的前两个例子（天气和地震API）也是可以勉强接受的。 
-- 你可以使用包括但不限于```BootStrap```, ```semantic ui```的任意UI库来完成这个assignment
+- 花时间想想你想用什么API来展示什么样的数据。如果实在想不出来，那么我举的前两个例子（天气和地震API）也是可以接受的。 
+- 你可以使用包括但不限于 ```BootStrap```, ```semantic ui``` 的任意UI库来完成这个assignment
 <br />
 <br />
 
@@ -153,6 +180,9 @@ See a demo here: [https://weather.ucsdtriplec.org](https://weather.ucsdtriplec.o
 
 - Q：如果我完成了这个assignment，我可以直接加入生产项目组吗？  
     A：需要看情况决定。如果这个assignment完成的人数多，质量高，并且完成assignment的人数达到了开展新生产项目的最低标准（~4人），我们会考虑为你们专门组建一个项目组，大家直接开始上手做项目。
+
+- Q：这个assignment允许合作吗？  
+    A：按CSE的老规矩，只可以讨论high-level ideas。
 <br />
 <br />
 
